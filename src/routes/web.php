@@ -20,7 +20,7 @@ use App\Http\Controllers\LikeController;
 |
 */
 
-// 会員登録まわり
+//認証不要(非認証)でアクセス可能
 //➀会員登録画面（表示）
 Route::get('/register', [UserController::class, 'create'])
     ->name('register.create');
@@ -29,68 +29,65 @@ Route::get('/register', [UserController::class, 'create'])
 Route::post('/register', [UserController::class, 'store'])
     ->name('register.store');
 
-//➁プロフィール設定画面（表示）
-Route::get('/mypage/profile', [ProfileController::class, 'edit'])
-    ->name('mypage.edit');
-
-//➁プロフィール設定画面（登録・更新処理）
-Route::patch('/mypage/profile', [ProfileController::class, 'update'])
-    ->name('mypage.update');
-
-//➂プロフィール画面（表示）
-Route::get('/mypage', [ProfileController::class, 'show'])
-    ->name('mypage.show');
-
-
-//商品まわり
-//➀商品一覧画面（トップ画面）（表示）
+//➁商品一覧画面（トップ画面）（表示）
+//タブ切り替えで「商品一覧画面＿マイリスト（/?tab=mylist）※ログインユーザーのみ」表示。（Controller内で認証済みかどうかを判定する形で制御）
 Route::get('/', [ProductController::class, 'index'])
     ->name('product.index');
 
-//➁商品詳細画面（表示）
+//➂商品詳細画面（表示）
 Route::get('/item/{item_id}', [ProductController::class, 'show'])
     ->name('product.show');
 
-//➂商品一覧画面＿マイリスト（表示）
-Route::get('/?tab=mylist', [ProductController::class, 'index'])
-    ->name('product.index');
 
-//➃いいね（登録）
-Route::post('/item/{item_id}/like', [LikeController::class, 'store'])
-    ->name('product.like');
 
-//➃いいね（解除）
-Route::delete('/item/{item_id}/unlike', [LikeController::class, 'destroy'])
-    ->name('product.unlike');
+// 認証済みユーザーのみアクセスできるグループ
+Route::middleware('redirect.if.not.registered')->group(function () {
 
-//➄商品購入画面（表示）
-Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])
-    ->name('purchase.create');
+    //➀プロフィール画面（表示）
+    // タブ切り替えで「プロフィール画面＿購入した商品一覧（/mypage?page=buy）」「プロフィール画面＿出品した商品一覧（/mypage?page=sell）」表示。
+    Route::get('/mypage', [ProfileController::class, 'show'])
+        ->name('mypage.show');
 
-//➄商品購入画面（購入処理）
-Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
-    ->name('purchase.store');
+    //➁プロフィール設定画面（表示）
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])
+        ->name('mypage.edit');
 
-//➅送付先住所変更画面（表示）
-Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])
-    ->name('purchase.address.edit');
+    //➁プロフィール設定画面（登録・更新処理）
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])
+        ->name('mypage.update');
 
-//➅送付先住所変更画面（変更処理）
-Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'update'])
-    ->name('purchase.address.update');
+    //➂いいね（登録）
+    Route::post('/item/{item_id}/like', [LikeController::class, 'store'])
+        ->name('product.like');
 
-//➆商品出品画面（表示）
-Route::get('/sell', [ProductController::class, 'create'])
-    ->name('product.create');
+    //➂いいね（解除）
+    Route::delete('/item/{item_id}/unlike', [LikeController::class, 'destroy'])
+        ->name('product.unlike');
 
-//➆商品出品画面（登録処理）
-Route::post('/sell', [ProductController::class, 'store'])
-    ->name('product.store');
+    //➃商品購入画面（表示）
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])
+        ->name('purchase.create');
 
-//➇プロフィール画面＿購入した商品一覧（表示）
-Route::get('/mypage?page=buy', [ProfileController::class, 'buylist'])
-    ->name('mypage.buy');
+    //➃商品購入画面（購入処理）
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
+        ->name('purchase.store');
 
-//➇プロフィール画面＿出品した商品一覧（表示）
-Route::get('/mypage?page=sell', [ProfileController::class, 'selllist'])
-    ->name('mypage.sell');
+    //➄送付先住所変更画面（表示）
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])
+        ->name('purchase.address.edit');
+
+    //➄送付先住所変更画面（変更処理）
+    Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'update'])
+        ->name('purchase.address.update');
+
+    //➅商品出品画面（表示）
+    Route::get('/sell', [ProductController::class, 'create'])
+        ->name('product.create');
+
+    //➅商品出品画面（登録処理）
+    Route::post('/sell', [ProductController::class, 'store'])
+        ->name('product.store');
+});
+
+
+
