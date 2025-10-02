@@ -14,7 +14,11 @@ class CreateProductCategoryTable extends Migration
     public function up()
     {
         Schema::create('product_category', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            //productsテーブルとのリレーションのため、下記外部キーの追加
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            //categoriesテーブルとのリレーションのため、下記外部キーの追加
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

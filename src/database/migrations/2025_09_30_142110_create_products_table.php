@@ -14,7 +14,17 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            //usersテーブルとのリレーションのため、下記外部キーの追加
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            //conditionsテーブルとのリレーションのため、下記外部キーの追加
+            $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->string('image');
+            $table->string('brand')->nullable(); // 任意
+            $table->integer('price');
+            $table->text('description');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
