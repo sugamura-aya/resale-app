@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name,20');//入力必須、20文字以内
+            $table->string('name',20);//入力必須、20文字以内
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('profile_image')->nullable();// 任意

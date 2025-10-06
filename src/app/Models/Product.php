@@ -65,4 +65,13 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'product_category');
     }
 
+    //Productsテーブルカラム「statu」をラベル表示できるように下記記述
+    public function getStatusLabelAttribute() {
+        return match($this->status) {
+            1 => '出品中',
+            2 => '販売済み',
+            default => '不明',
+        };
+    }
+
 }
