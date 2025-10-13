@@ -21,13 +21,13 @@ use App\Http\Controllers\LikeController;
 */
 
 //認証不要(非認証)でアクセス可能
-//➀会員登録画面（表示）
-Route::get('/register', [UserController::class, 'create'])
-    ->name('register.create');
+//➀会員登録画面（表示）※Fortify利用にて処理、不要に
+/*Route::get('/register', [UserController::class, 'create'])
+    ->name('register.create');*/
 
-//➀会員登録画面（登録処理）
-Route::post('/register', [UserController::class, 'store'])
-    ->name('register.store');
+//➀会員登録画面（登録処理）※Fortify利用にて処理、不要に
+/*Route::post('/register', [UserController::class, 'store'])
+    ->name('register.store');*/
 
 //➁商品一覧画面（トップ画面）（表示）
 //タブ切り替えで「商品一覧画面＿マイリスト（/?tab=mylist）※ログインユーザーのみ」表示。（Controller内で認証済みかどうかを判定する形で制御）
@@ -52,7 +52,7 @@ Route::middleware('redirect.if.not.registered')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])
         ->name('mypage.edit');
 
-    //➁プロフィール設定画面（登録・更新処理）
+    //➁プロフィール設定画面（初回登録&2回目以降更新処理）
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])
         ->name('mypage.update');
 

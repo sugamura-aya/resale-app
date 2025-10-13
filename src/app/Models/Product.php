@@ -74,4 +74,20 @@ class Product extends Model
         };
     }
 
+    //商品名検索スコープ（部分一致）
+    public function scopeNameSearch($query, $name)
+    {
+        if (!empty($name)) {
+            $query->where('name','like', '%'.$name.'%');
+        }
+    }
+
+    //並び替えローカルスコープ（いいね数が多い順＋いいねが無い場合ID順）
+    public function scopeSortByLikes($query)
+    {
+        $query->withCount('likes')
+            ->orderByDesc('likes_count')
+            ->orderBy('id', 'asc');
+    }
+
 }
