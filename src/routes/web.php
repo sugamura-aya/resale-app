@@ -56,13 +56,17 @@ Route::middleware('redirect.if.not.registered')->group(function () {
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])
         ->name('mypage.update');
 
-    //➂いいね（登録）
+    //➂-1商品詳細ページでいいね（登録）
     Route::post('/item/{item_id}/like', [LikeController::class, 'store'])
         ->name('product.like');
 
-    //➂いいね（解除）
+    //➂-1商品詳細ページでいいね（解除）
     Route::delete('/item/{item_id}/unlike', [LikeController::class, 'destroy'])
         ->name('product.unlike');
+
+    //➂-2商品詳細ページでコメント投稿
+    Route::post('/items/{item_id}/comment', [CommentController::class, 'store'])
+        ->name('comment.store');
 
     //➃商品購入画面（表示）
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])

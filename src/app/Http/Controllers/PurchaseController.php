@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Order;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
 {
@@ -28,7 +30,7 @@ class PurchaseController extends Controller
 
 
     //➃商品購入画面（購入処理）
-    public function store(Request $request,$item_id)
+    public function store(PurchaseRequest $request,$item_id)
     {
         //ログインしているユーザーを取得
         $user = Auth::user();
@@ -77,7 +79,7 @@ class PurchaseController extends Controller
 
 
     //➄送付先住所変更画面（変更処理）
-    public function update(Request $request,$item_id)
+    public function update(AddressRequest $request,$item_id)
     {
         $data = $request->only([
             'postcode', 'address', 'building'

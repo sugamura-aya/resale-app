@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Order;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -47,7 +48,7 @@ class ProfileController extends Controller
 
 
     //➁プロフィール設定画面（初回登録&2回目以降更新処理）
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         //ログインしているユーザーを取得(時点で登録されているプロフィール内容を反映表示させるため)
         $user = Auth::user();

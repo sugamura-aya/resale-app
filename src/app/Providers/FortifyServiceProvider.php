@@ -10,6 +10,8 @@ use Laravel\Fortify\Fortify;
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Responses\RegisterResponse;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -18,10 +20,22 @@ class FortifyServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register() //プロバイダで提供する依存関係やサービスの登録場所
     {
         // 会員登録後のリダイレクト先をカスタムレスポンスに置き換え
         $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
+
+        // デフォルトの LoginRequest を自作のものに差し替え
+        $this->app->bind(
+            \Laravel\Fortify\Http\Requests\LoginRequest::class,
+            \App\Http\Requests\LoginRequest::class
+        );
+
+        // デフォルトの RegisterRequest を自作のものに差し替え
+        $this->app->bind(
+            \Laravel\Fortify\Http\Requests\RegisterRequest::class,
+            \App\Http\Requests\RegisterRequest::class
+        );
     }
 
     /**

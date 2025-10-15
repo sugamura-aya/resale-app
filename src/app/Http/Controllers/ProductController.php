@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use App\Models\Product; 
 use App\Models\Category; 
+use App\Http\Requests\ExhibitionRequest;
 
 class ProductController extends Controller
 {
@@ -18,16 +19,23 @@ class ProductController extends Controller
         //検索キーワードをRequestから取得
         $keyword = $request->input('keyword');
 
-        // クエリビルダ作成（検索＋絞り込み＋ページネーションと条件が追加されているためクエリビルダ）
-        $query = Product::query()->with('categories');
+        // 全商品取得：クエリビルダ作成（検索＋絞り込み＋ページネーションと条件が追加されているためクエリビルダ）
+        $query = Product::query()
+                        ->with('categories') //リレーション先のｶﾃｺﾞﾘも一緒に取得
+                        ->withCount('orders'); //購入済みかをカウント(Blade 側で $product->orders_count>0でsold判定)     
 
         // 部分一致で絞り込み(!empty($keyword) → 値が入っている場合だけtrue)
         if (!empty($keyword)) {
             $query->nameSearch($keyword); 
         }
 
+        // ログインユーザー自身の出品商品は非表示
+        if (Auth::check()) {
+            $query->where('user_id', '!=', Auth::id());
+        }
+
         // マイリストタブの場合、ログインユーザーのいいね商品に絞る
-        if ($tab === 'mylist') {
+        if ($tab === 'mylist' && Auth::check()) {
             $query->whereHas('likes', function ($q) {
                 $q->where('user_id', Auth::id()); //→ Likesテーブルのなかでログインユーザーがいいねしたものだけ に絞り込み
             });
@@ -35,7 +43,8 @@ class ProductController extends Controller
 
         // 並べ替え・ページネーション
         $products = $query
-            ->withCount('likes')->orderByDesc('likes_count')//いいねの多い順
+            ->withCount('likes') //いいね数カウント
+            ->orderByDesc('likes_count')//いいねの多い順
             ->paginate(12)
             ->withQueryString(); // withQueryString() で検索条件と ?tab= を URL に保持
 
@@ -46,12 +55,14 @@ class ProductController extends Controller
     //➂商品詳細画面（表示）
     public function show($item_id)
     {
-        $product = Product::with(['categories', 'likes', 'comments'])->findOrFail($item_id);
+        $product = Product::with(['categories', 'likes', 'comments'])
+                            ->withCount(['likes', 'comments']) //いいね数（Bladeファイル{{ $product->likes_count }}で表示）、コメント数（Bladeファイル{{ $product->comments_count }}で表示）をカウント
+                            ->findOrFail($item_id);
 
         //ログインユーザーがこの商品をいいね済みかを判定
         $isLiked = $product->likes->contains('user_id', Auth::id());
         
-        return view('products.show', compact('product'/*,'isLiked'*/));
+        return view('products.show', compact('product','isLiked'));//isLiked で、ログインユーザーが既にいいね済みかも判定
     }
 
 
@@ -66,10 +77,8 @@ class ProductController extends Controller
 
 
     //➅商品出品画面（登録処理）
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
-        //今ログインしているユーザーのIDを取得(ログインユーザーのみ出品可能のため）
-        $user_id = Auth::id();
 
         // 画像アップロード
         if ($request->hasFile('image')) {
