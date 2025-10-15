@@ -44,7 +44,7 @@ class FortifyServiceProvider extends ServiceProvider
      * @return void
      */
 
-    //boot() は画面表示やログイン制限だけを記載
+    //画面表示やログイン制限だけを記載
     public function boot()
     {
         //新規ユーザの登録処理
