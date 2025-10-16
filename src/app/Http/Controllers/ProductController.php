@@ -22,7 +22,7 @@ class ProductController extends Controller
         // 全商品取得：クエリビルダ作成（検索＋絞り込み＋ページネーションと条件が追加されているためクエリビルダ）
         $query = Product::query()
                         ->with('categories') //リレーション先のｶﾃｺﾞﾘも一緒に取得
-                        ->withCount('orders'); //購入済みかをカウント(Blade 側で $product->orders_count>0でsold判定)     
+                        ->withCount(['orders','likes']); //購入数といいね数をカウント(Blade 側で $product->orders_count>0でsold判定)     
 
         // 部分一致で絞り込み(!empty($keyword) → 値が入っている場合だけtrue)
         if (!empty($keyword)) {
@@ -41,12 +41,10 @@ class ProductController extends Controller
             });
         }
 
-        // 並べ替え・ページネーション
+        // 並べ替え
         $products = $query
-            ->withCount('likes') //いいね数カウント
             ->orderByDesc('likes_count')//いいねの多い順
-            ->paginate(12)
-            ->withQueryString(); // withQueryString() で検索条件と ?tab= を URL に保持
+            ->get();
 
         return view('products.index', compact('products', 'tab'));
     }
@@ -58,6 +56,16 @@ class ProductController extends Controller
         $product = Product::with(['categories', 'likes', 'comments'])
                             ->withCount(['likes', 'comments']) //いいね数（Bladeファイル{{ $product->likes_count }}で表示）、コメント数（Bladeファイル{{ $product->comments_count }}で表示）をカウント
                             ->findOrFail($item_id);
+
+        $product = Product::with([
+            'categories',
+            'likes',
+            'comments' => function($query) {
+                $query->orderBy('created_at', 'desc'); // 新しい順に並び替え！
+            },
+        ])
+        ->withCount(['likes', 'comments'])
+        ->findOrFail($item_id);
 
         //ログインユーザーがこの商品をいいね済みかを判定
         $isLiked = $product->likes->contains('user_id', Auth::id());

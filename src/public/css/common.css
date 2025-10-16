@@ -2,7 +2,8 @@
 .header {
     position: relative;
         /* 検索フォームを中央配置するための基準 */
-    max-width: 1440px;
+    max-width: 1512px;
+    height: 80px;
     margin: 0 auto;/* 中央寄せ */
     padding: 10px 20px;/* 端が詰まらないように少し余白 */
 
@@ -13,8 +14,8 @@
 }
 
 .header__logo {
-    width: 200px;
-    height: auto;
+    width: 370px;
+    height: 36px;
 }
 
 /* ========== Search Form ========== */
@@ -25,31 +26,48 @@
     transform: translateX(-50%);
         /* 自身の幅の半分ずらして真ん中に */
     /*margin: 0 auto;*/
-    width: 30%;
+    width: 563px;
+    padding:15px 31px ;
 }
 
 .search-form__input {
-    width: 100%;
-    height: 30px;
+    width: 500px;
+    height: 50px;
     border-radius: 5px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000000;
 }
 
 .header__nav{
     display: flex;/*子要素を横並びに*/   
-    justify-content: flex-end;; 
-    align-items: center;
-    width: 30%;
+    justify-content: flex-end;/* 右端に揃える */
+    align-items: center;/* 縦中央 */
+    width: 463px;
     gap: 15px;/* ボタン間の余白 */
 }
 
 /* ========== Logout Form ========== */
+.logout-form{
+    display: flex;
+    justify-content: center;
+}
+
 .logout-form button{
     background: none;
     border: none;/* ボーダーなし */
-    color: white;
+    color: #FFFFFF;
     text-decoration: none;/* 下線なし */
     cursor: pointer;
-    font-size: 1rem;/* 他と揃える */ 
+    width: 135px;
+    height: 47px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height:25px;
+    display: flex;/* ボタン内の文字も中央揃えにする */
+    align-items: center;
+    justify-content: center;
+    line-height: normal;/* line-heightはflexで中央揃え */
 }
 
 .logout-form button:hover {
@@ -60,12 +78,19 @@
 .nav__item {
     background: none;
     border: none;/* ボーダーなし */
-    padding: 0;
     color: white;
     text-decoration: none;/* 下線なし */
     cursor: pointer;
-    font-size: 1rem;/* 他と揃える */
     text-align: center;
+    display: flex;/* ボタン内の文字も中央揃えにする */
+    align-items: center;
+    justify-content: center;
+    line-height: normal;/* line-heightはflexで中央揃え*/
+    width: 135px;
+    height: 47px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #FFFFFF;
 }
 
 .nav__item:hover {
@@ -73,14 +98,22 @@
 }
 
 .nav__item--button{
-    display: inline-block;
+    display: flex;/* ボタン内の文字も中央揃えにする */
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+    line-height: normal;/* line-heightはflexで中央揃え */
     background-color: #fff;
     color:black;
-    padding: 5px 20px;
-    border-radius: 5px;
+    padding: 12px 25px;
+    border-radius: 4%;
     text-decoration: none;/* 下線なし */
     /*font-weight: bold;*/
-    text-align: center;
+    text-align: center; 
+    font-size: 24px;
+    font-weight: 400;  
+    color: #000000; 
 }
 
 .nav__item--button:hover {
