@@ -29,6 +29,8 @@ use App\Http\Controllers\LikeController;
 /*Route::post('/register', [UserController::class, 'store'])
     ->name('register.store');*/
 
+
+    
 //➁商品一覧画面（トップ画面）（表示）
 //タブ切り替えで「商品一覧画面＿マイリスト（/?tab=mylist）※ログインユーザーのみ」表示。（Controller内で認証済みかどうかを判定する形で制御）
 Route::get('/', [ProductController::class, 'index'])

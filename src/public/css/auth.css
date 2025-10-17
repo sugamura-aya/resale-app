@@ -1,0 +1,121 @@
+/*ログイン画面・会員登録画面共通*/
+
+/* ========== ページ全体========== */
+.auth-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;/* 横方向センター */
+    align-items: center;/* 縦方向センター */
+    padding: 120px 20px;/* 画面端が詰まらないように余白 */
+}
+
+/* ========== ページと入力部分の境 ========== */
+.auth-form {
+    max-width: 680px;
+}
+
+/* ========== 入力部分全体 ========== */
+.auth-form__content {
+    width: 680px;
+    margin: 0 auto;
+}
+
+/* ========== 入力部分中身 ========== */
+/* ========== タイトル ========== */
+.tit {
+    width: 100%;
+    height: 46.04px;
+    text-align: center;
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #000000;
+}
+
+/* ========== 入力コンテンツ========== */
+.content-name {
+    display: block;
+    width: 680px;
+    height: 33.86px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.content-item {
+    width: 100%;
+    height: 57.09px;
+    margin-top: 5px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.content-item::placeholder {
+    color: #B9B9B9;
+}
+
+/* ========== エラーメッセージ========== */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+/* ========== ボタン郡========== */
+/* ========== ログイン・会員登録ボタン========== */
+.auth__button {
+    display: flex;
+    flex-direction: column;
+    /* ← 横並び→縦並びに変更 */
+    align-items: center;
+    /* ← 子要素を中央揃え */
+    gap: 10px;
+    margin-top: 70px;
+}
+
+.auth__button-submit {
+    width: 100%;
+    height: 65.25px;
+    font-size: 26px;
+    font-weight: 700;
+    color:#FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    background: #FF5555
+}
+
+.auth__button-submit:hover {
+    background-image: linear-gradient(90deg,
+            rgba(255, 183, 227, 1),
+            rgba(255, 247, 216, 0.35),
+            rgba(246, 190, 232, 0.65),
+            rgba(243, 170, 243, 0.6));
+}
+
+
+/* ========== ログインページ・課員登録ページへのリンク========== */
+.login__button {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #0073CC;
+}
+
+.register__button{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #0073CC;
+}
+
