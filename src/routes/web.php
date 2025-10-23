@@ -19,31 +19,20 @@ use App\Http\Controllers\LikeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//認証不要(非認証)でアクセス可能
-//➀会員登録画面（表示）※Fortify利用にて処理、不要に
-/*Route::get('/register', [UserController::class, 'create'])
-    ->name('register.create');*/
-
-//➀会員登録画面（登録処理）※Fortify利用にて処理、不要に
-/*Route::post('/register', [UserController::class, 'store'])
-    ->name('register.store');*/
-
-
     
-//➁商品一覧画面（トップ画面）（表示）
+//➀商品一覧画面（トップ画面）（表示）
 //タブ切り替えで「商品一覧画面＿マイリスト（/?tab=mylist）※ログインユーザーのみ」表示。（Controller内で認証済みかどうかを判定する形で制御）
 Route::get('/', [ProductController::class, 'index'])
     ->name('product.index');
 
-//➂商品詳細画面（表示）
+//➁商品詳細画面（表示）
 Route::get('/item/{item_id}', [ProductController::class, 'show'])
     ->name('product.show');
 
 
 
 // 認証済みユーザーのみアクセスできるグループ
-Route::middleware('redirect.if.not.registered')->group(function () {
+/*Route::middleware('redirect.if.not.registered')->group(function () {*/
 
     //➀プロフィール画面（表示）
     // タブ切り替えで「プロフィール画面＿購入した商品一覧（/mypage?page=buy）」「プロフィール画面＿出品した商品一覧（/mypage?page=sell）」表示。
@@ -93,7 +82,7 @@ Route::middleware('redirect.if.not.registered')->group(function () {
     //➅商品出品画面（登録処理）
     Route::post('/sell', [ProductController::class, 'store'])
         ->name('product.store');
-});
+/*});*/
 
 
 

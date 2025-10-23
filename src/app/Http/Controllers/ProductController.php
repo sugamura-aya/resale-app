@@ -12,14 +12,14 @@ class ProductController extends Controller
 {
     //➁商品一覧画面（トップ画面）（表示）
     public function index(Request $request)
-    {
+    {        
         // タブの種類を取得（?tab=mylistか/か）
         $tab = $request->query('tab', 'all');
 
         //検索キーワードをRequestから取得
         $keyword = $request->input('keyword');
 
-        // 全商品取得：クエリビルダ作成（検索＋絞り込み＋ページネーションと条件が追加されているためクエリビルダ）
+        // 全商品取得：クエリビルダ作成（検索＋絞り込みと、条件が追加されているためクエリビルダ）
         $query = Product::query()
                         ->with('categories') //リレーション先のｶﾃｺﾞﾘも一緒に取得
                         ->withCount(['orders','likes']); //購入数といいね数をカウント(Blade 側で $product->orders_count>0でsold判定)     

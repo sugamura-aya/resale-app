@@ -21,29 +21,40 @@
     <body>
         <header class="header">
             <div class="header__inner">
-                <img class="header__logo" src="{{asset('storage/icon/logo.svg')}}" alt="ロゴマーク">
 
+                {{-- 左：ロゴ --}}
+                <div class="header__left">
+                    <img class="header__logo" src="{{asset('storage/icon/logo.svg')}}" alt="ロゴマーク">
+                </div>
+
+                {{-- 中央：検索フォーム --}}
+                <div class="header__center">
                 {{-- ログイン・会員登録ページでは非表示 --}}
                 @if (!in_array(Route::currentRouteName(), ['login', 'register']))
+                        {{--商品検索フォーム--}}
+                        <form action="{{ route('product.index') }}" method="GET" class="search-form">
+                            <input type="text" class="search-form__input" name="keyword" value="{{request('keyword')}}" placeholder=" なにをお探しですか？">
+                        </form>
+                    @endif
+                </div>
 
-                {{--商品検索フォーム--}}
-                <form action="{{ route('product.index') }}" method="GET" class="search-form">
-                    <input type="text" class="search-form__input" name="keyword" value="{{request('keyword')}}" placeholder=" なにをお探しですか？">
-                </form>
+                {{-- 右：ボタン3種 --}}
+                <div class="header__right">
+                {{-- ログイン・会員登録ページでは非表示 --}}
+                @if (!in_array(Route::currentRouteName(), ['login', 'register']))
+                    <div class="header__nav">
+                        {{--ログアウト--}}
+                        <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                        @csrf
+                            <button type="submit" class="nav__item">ログアウト</button>
+                        </form>
 
-                <div class="header__nav">
-                    {{--ログアウト--}}
-                    <form action="{{ route('logout') }}" method="POST" class="logout-form">
-                    @csrf
-                        <button type="submit" class="nav__item">ログアウト</button>
-                    </form>
+                        {{--マイページ--}}
+                        <a class="nav__item" href="{{ route('mypage.show') }}">マイページ</a>
 
-                    {{--マイページ--}}
-                    <a class="nav__item" href="{{ route('mypage.show') }}">マイページ</a>
-
-                    {{-- 出品 --}}
-                    <a class="nav__item--button" href="{{ route('product.create') }}">出品</a> 
-                </div> 
+                        {{-- 出品 --}}
+                        <a class="nav__item--button" href="{{ route('product.create') }}">出品</a> 
+                    </div> 
                 @endif  
             </div>
         </header>
