@@ -20,11 +20,13 @@ class ProfileController extends Controller
         // ページの種類を取得（?page=buyか?page=sellか）
         $page = $request->query('page', 'sell');// デフォルトは「出品した商品」
 
-        //出品商品取得
-        $sellProducts=Product::where('user_id', Auth::id())->get();
-
-        //購入商品取得
-        $orderProducts=Order::where('user_id', Auth::id())->get();
+        if ($user) {
+            $sellProducts = Product::where('user_id', $user->id)->get();//出品商品取得
+            $orderProducts = Order::where('user_id', $user->id)->get();//購入商品取得
+        } else {
+            $sellProducts = collect(); // 空のコレクションを返す
+            $orderProducts = collect(); // 空のコレクションを返す
+        }
 
         //タブ切り替え処理（クエリパラメーター?page=buy or ?page=sell で表示切替）※デフォは出品商品一覧
         if ($page === 'sell') {
