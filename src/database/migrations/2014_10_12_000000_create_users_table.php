@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('profile_image')->nullable();// 任意
-            $table->integer('postcode');
+            $table->string('postcode', 8);// バリデーションで「ハイフンを含む8文字」指定だったため、stringで文字列扱い
             $table->string('address');
             $table->string('building')->nullable();// 任意
             $table->timestamps();

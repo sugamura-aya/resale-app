@@ -1,0 +1,317 @@
+
+/*商品購入画面*/
+
+/* ------------------------ */
+/* ページ基本構造 */
+/* ------------------------ */
+.purchase-page {
+    width: 100%;
+    margin-top: 93px;
+    margin-left: 80px;
+    margin-right: 80px;
+    
+}
+
+.purchase-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.purchase-form__content {
+    width: 53.24%;
+
+}
+
+.purchase-confirm__content {
+    width: 29.10%;
+    margin-left: 102px;
+}
+
+/* ------------------------ */
+/* ➀商品情報 */
+/* ------------------------ */
+.product__info {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #000000;
+        /* 太さ1px、実線の黒い下線を引く */
+}
+
+.img-preview-wrapper {}
+
+.product-img {
+    width: 177.53px;
+    height: 177.53px;
+    display: block;
+}
+
+.nameprice-preview-wrapper {
+    width: 326px;
+    height: 187px;
+
+}
+
+.product-name {
+    margin-top: 0px;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.product-price {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: 27px;
+    color: #000000;
+}
+
+/* ------------------------ */
+/* ➁支払方法選択 */
+/* ------------------------ */
+.payment-method {
+    border-bottom: 1px solid #000000;
+        /* 太さ2px、実線の黒い下線を引く */
+}
+
+.payment-method__title {
+    width: 326px;
+    height: 85px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.payment-method__select {
+    margin-top: 11px;
+    margin-left: 96px;
+    margin-bottom: 63px;
+    width: 265px;
+    height: 31px;
+    border: 1px solid #5F5F5F;
+    font-size: 16px;
+    font-weight: 700;
+    color: #5F5F5F;
+}
+
+/* ------------------------ */
+/* ➂配送先情報 */
+/* ------------------------ */
+.address__info {
+    border-bottom: 1px solid #000000;
+        /* 太さ2px、実線の黒い下線を引く */
+    display: flex;
+    justify-content: space-between;
+}
+
+.address__content {
+    margin-bottom: 63px;
+}
+
+.address__title {
+    width: 326px;
+    height: 85px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.address__item {
+    margin-left: 96px;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.address-change__button {
+    width: 115px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+}
+
+.address-change__button-submit {
+    margin: auto;
+    font-weight: 400;
+    font-size: 20px;
+    color:#0073CC ;
+    text-decoration: none;
+}
+
+/* ------------------------ */
+/* 右側：確認表示＆購入ボタン */
+/* ------------------------ */
+.confirm-grid {
+    width: 440px;
+    height: 230px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    border: 1px solid #000000;
+    /* 箱全体の枠線 */
+    margin-bottom: 30px;
+}
+
+/* グリッド内のすべてのアイテムに適用 */
+.confirm-grid>div {
+    padding: 10px 15px;
+    /* 上下左右の余白 */
+}
+
+.confirm-grid__item-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #000000;
+    /* 2行目の上線を入れる（オプション） */
+    border-top: 1px solid #000000;
+    height: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-grid__item-value {
+    text-align: right;
+    font-size: 24px;
+    color: #000000;
+    font-weight: 400;
+    /* 2行目の上線を入れる（オプション） */
+    border-top: 1px solid #000000;
+    height: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 1行目（商品代金）の上下の線は不要なので消す */
+.confirm-grid>div:nth-child(1),
+.confirm-grid>div:nth-child(2) {
+    border-top: none;
+}
+
+.purchase__button {
+    margin-top: 60px;
+}
+
+.purchase__button-submit {
+    width: 440px;
+    height: 60px;
+    border-radius: 5px;
+    background-color:#FF5555 ;
+    font-weight: 700;
+    font-size: 26px;
+    color: #FFFFFF;
+}
+
+
+
+
+
+/*送付先住所変更画面*/
+
+/* ========== ページ全体========== */
+.address-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* 横方向センター */
+    align-items: center;
+    /* 縦方向センター */
+    padding: 48px 20px;
+    /* 画面端が詰まらないように余白 */
+}
+
+/* ========== ページと入力部分の境 ========== */
+.address-form {
+    max-width: 680px;
+}
+
+/* ========== 入力部分全体 ========== */
+.address-form__content {
+    width: 680px;
+    margin: 0 auto;
+}
+
+/* ========== 入力部分中身 ========== */
+/* ========== タイトル ========== */
+.tit {
+    width: 100%;
+    height: 46.04px;
+    text-align: center;
+}
+
+.address-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #000000;
+}
+
+/* ========== 入力コンテンツ========== */
+.content-name {
+    display: block;
+    width: 680px;
+    height: 36px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.content-item {
+    width: 100%;
+    height: 45px;
+    margin-top: 5px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.content-item::placeholder {
+    color: #B9B9B9;
+}
+
+/* ========== エラーメッセージ========== */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+/* ========== ボタン郡========== */
+.address__button {
+    display: flex;
+    flex-direction: column;
+    /* ← 横並び→縦並びに変更 */
+    align-items: center;
+    /* ← 子要素を中央揃え */
+    gap: 10px;
+    margin-top: 70px;
+}
+
+.address__button-submit {
+    width: 100%;
+    height: 60px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    background: #FF5555
+}
+
+.address__button-submit:hover {
+    background-image: linear-gradient(90deg,
+            rgba(255, 183, 227, 1),
+            rgba(255, 247, 216, 0.35),
+            rgba(246, 190, 232, 0.65),
+            rgba(243, 170, 243, 0.6));
+}

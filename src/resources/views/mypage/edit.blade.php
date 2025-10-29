@@ -23,7 +23,7 @@
         <div class="image-upload-wrapper">
           <!-- 丸い画像枠 -->
           <div class="image-preview-wrapper">
-              <img id="preview-image" class="preview-image" alt="画像プレビュー" src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '' }}">
+            <img id="preview-image" class="preview-image"  src="{{ $user && $user->profile_image ? asset('storage/' . $user->profile_image) : '' }}">
           </div>
 
           <!-- ファイル入力（非表示） -->
@@ -46,7 +46,7 @@
      {{--ユーザー名--}}
       <div class="content">
         <p class="content-name">ユーザー名</p>
-        <input type="text" name="name" class="content-item"  value="{{ old('name', $user->name ?? '') }}">
+        <input type="text" name="name" class="content-item" value="{{ old('name', $user?->name ?? '') }}">
       </div>
       @if($errors->has('name'))
         @foreach($errors->get('name') as $message)
@@ -57,7 +57,7 @@
       {{--郵便番号--}}
       <div class="content">
         <p class="content-name">郵便番号</p>
-        <input type="text" name="postcode" class="content-item" value="{{ old('postcode', $user->postcode ?? '') }}">
+        <input type="text" name="postcode" class="content-item" value="{{ old('postcode', $user?->postcode ?? '') }}">
       </div>
       @if($errors->has('postcode'))
         @foreach($errors->get('postcode') as $message)
@@ -69,7 +69,7 @@
       <div class="content">
         <p class="content-name">住所</p>
         <input type="text" name="address" class="content-item"
-        value="{{ old('address', $user->address ?? '') }}">
+        value="{{ old('address', $user?->address ?? '') }}">
       </div>
       @if($errors->has('address'))
         @foreach($errors->get('address') as $message)
@@ -80,7 +80,7 @@
       {{--建物名--}}
       <div class="content">
         <p class="content-name">建物名</p>
-        <input type="text" name="building" class="content-item" value="{{ old('building', $user->building ?? '') }}">
+        <input type="text" name="building" class="content-item" value="{{ old('building', $user?->building ?? '') }}">
       </div>
       @if($errors->has('building'))
         @foreach($errors->get('building') as $message)
@@ -102,10 +102,8 @@
 document.getElementById('image-input').addEventListener('change', function(){
     const file = this.files[0];
     const previewImage = document.getElementById('preview-image');
-    const fileNameSpan = document.getElementById('file-name');
     
     if(file){
-        fileNameSpan.textContent = file.name;
         const reader = new FileReader();
         reader.onload = function(e){
             previewImage.src = e.target.result;
@@ -113,7 +111,6 @@ document.getElementById('image-input').addEventListener('change', function(){
         }
         reader.readAsDataURL(file);
     } else {
-        fileNameSpan.textContent = '';
         previewImage.src = '';
         previewImage.style.display = 'none';
     }

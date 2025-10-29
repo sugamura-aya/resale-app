@@ -14,18 +14,44 @@ class PurchaseController extends Controller
     //➃商品購入画面（表示）
     public function create(Request $request,$item_id)
     {
+                        // 🚨 画面確認用ダミーコード 🚨
+                        // 以下の if ブロック全体を、画面確認が終わったら削除する
+                        if (!Auth::check() || true) {
+                            // ユーザー情報をダミーデータで上書き（ログインしていないと $user->postcode などでエラーになるため）
+                            $user = (object)[
+                                'postcode' => '123-4567',
+                                'address' => '東京都渋谷区テスト町1-2-3',
+                                'building' => 'テストハイツ101',
+                                'name' => 'テストユーザー',
+                            ];
+                            // 商品情報もダミーで用意（DBに商品がないとエラーになるため）
+                            $product = (object)[
+                                'id' => $item_id,
+                                'image' => 'products/coffee_mill.jpg', // 👈 既存のダミー画像パス
+                                'name' => 'テスト商品 ' . $item_id,
+                                'price' => 12000,
+                            ];
+
+                        } else {
+                            // ⭐ 本来のコード ⭐ 画面確認が終わったら、この else ブロックの中身が create メソッドの本体になる
+                            $user = Auth::user();
+                            $product = Product::findOrFail($item_id);
+                        }
+                        // 🚨 画面確認用ダミーコードここまで 🚨
+
+
         //ログインしているユーザーを取得
-        $user = Auth::user();
+        //$user = Auth::user();
 
         //ルートパスで送られてきた{item_id}で商品取得
-        $product = Product::findOrFail($item_id);
+        //$product = Product::findOrFail($item_id);
 
         // セッションに住所変更があれば優先
         $postcode = $request->session()->get('postcode', $user->postcode);
         $address = $request->session()->get('address', $user->address);
         $building = $request->session()->get('building', $user->building);
 
-        return view('purchase.create', compact('user','product','postcode','address','building'));
+        return view('purchase.create', compact('user','product','postcode','address','building', 'item_id'));
     }
 
 
@@ -69,12 +95,25 @@ class PurchaseController extends Controller
         //ログインしているユーザーを取得（住所取得）
         $user = Auth::user();
 
+
+            // 🔽 ログインしてないとき用にダミーデータを仮設定（確認用）
+            if (!Auth::check()) {
+                $user = (object)[
+                    'postcode' => '123-4567',
+                    'address' => '東京都渋谷区テスト町1-2-3',
+                    'building' => 'テストハイツ101'
+                ];
+            } else {
+                $user = Auth::user();
+            }
+
+
         // 既にセッションに住所がある場合はそちらを優先
         $postcode = $request->session()->get('postcode', $user->postcode);
         $address = $request->session()->get('address', $user->address);
         $building = $request->session()->get('building', $user->building);
 
-        return view('purchase.address_edit', compact('user', 'postcode', 'address', 'building'));
+        return view('purchase.address', compact('user', 'postcode', 'address', 'building', 'item_id'));
     }
 
 

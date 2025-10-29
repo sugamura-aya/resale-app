@@ -22,10 +22,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register() //プロバイダで提供する依存関係やサービスの登録場所
     {
-        // 会員登録後のリダイレクト先をカスタムレスポンスに置き換え
-        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
 
-        // デフォルトの LoginRequest を自作のものに差し替え
+         // デフォルトの LoginRequest を自作のものに差し替え
         $this->app->bind(
             \Laravel\Fortify\Http\Requests\LoginRequest::class,
             \App\Http\Requests\LoginRequest::class
@@ -36,6 +34,12 @@ class FortifyServiceProvider extends ServiceProvider
             \Laravel\Fortify\Http\Requests\RegisterRequest::class,
             \App\Http\Requests\RegisterRequest::class
         );
+
+
+        // 会員登録後のリダイレクト先をカスタムレスポンスに置き換え
+        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
+
+
     }
 
     /**
@@ -66,9 +70,6 @@ class FortifyServiceProvider extends ServiceProvider
 
             return Limit::perMinute(10)->by($email . $request->ip());
         });
-
-        // ログイン後のリダイレクト先
-        Fortify::redirects('/');
 
     }
 }

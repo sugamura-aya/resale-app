@@ -36,6 +36,12 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+
+            // ↓ 仮データを追加
+            // (※➀会員登録画面で name・email・password しか入力しない→➁users テーブルの postcode・address は NOT NULL になっている→➂そのため、会員登録時に postcode・address が null のまま保存されようとしてエラーになる)→このエラーを回避させるため、下記仮データを追加）
+            'postcode' => '000-0000',
+            'address' => '未入力',
+            'building' => null,
         ]);
     }
 }
