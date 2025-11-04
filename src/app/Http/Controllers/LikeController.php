@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Like;
+use App\Models\Product; // 総いいね数を取得するためにProductモデルを追加
 
 class LikeController extends Controller
 {
@@ -13,6 +14,7 @@ class LikeController extends Controller
     {
         //今ログインしているユーザーのIDを取得(いいねは「誰が押したか」が必須のため)
         $userId = Auth::id();
+        $isLiked = false; // 初期値
 
         // 重複登録を防ぐ（すでにいいねしてたら何もしない）
         $alreadyLiked = Like::where('user_id', $userId)
@@ -23,11 +25,22 @@ class LikeController extends Controller
         if (!$alreadyLiked) {
             Like::create([
                 'user_id'=>$userId,
-                'product_id'=>$item_id, // $item_idそのままでOK！
+                'product_id'=>$item_id, 
             ]);
+            $isLiked = true; // 登録したので状態をtrueにする
+        } else {
+            // すでに登録されていた場合も、当然いいね状態はtrue
+            $isLiked = true;
         }
 
-        return response()->json(['status' => 'ok']);
+        // 商品の総いいね数を再計算
+        $likesCount = Like::where('product_id', $item_id)->count();
+
+        return response()->json([
+            'status' => 'ok',
+            'isLiked' => $isLiked,
+            'likesCount' => $likesCount,
+        ]);
     }
 
 
@@ -36,12 +49,20 @@ class LikeController extends Controller
     {
         //今ログインしているユーザーのIDを取得(いいねは「誰が押したか」が必須のため)
         $userId = Auth::id();
+        $isLiked = false; // 初期値
 
         //いいねを解除
         Like::where('user_id',$userId)
             ->where('product_id',$item_id)
             ->delete();
 
-        return response()->json(['status' => 'ok']);
+        // 商品の総いいね数を再計算
+        $likesCount = Like::where('product_id', $item_id)->count();
+
+        return response()->json([
+            'status' => 'ok',
+            'isLiked' => $isLiked,
+            'likesCount' => $likesCount,
+        ]);
     }
 }

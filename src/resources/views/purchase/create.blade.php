@@ -8,7 +8,7 @@
 @section('content')
 <div class="purchase-page">
 
-  <form action="{{route('purchase.store', ['item_id' => $item_id]) }}" class="purchase-form" method="POST">
+  <form action="{{route('purchase.store', ['item_id' => $item_id]) }}" class="purchase-form" method="POST" id="purchaseForm">
   @csrf
 
     {{--左側（➀商品情報、➁支払方法選択、➂配送先情報）--}}
@@ -36,6 +36,10 @@
             <option value="convenience_store">コンビニ払い</option>       
             <option value="card">カード支払い</option>     
           </select>
+
+          @error('payment_method')
+            <p class="error-message">{{ $message }}</p>
+          @enderror
       </div>
 
       {{--➂配送先情報--}}
@@ -75,7 +79,12 @@
 
       {{--下部：購入ボタン--}}
       <div class="purchase__button">
-        <button class="purchase__button-submit">購入する</button>
+
+        @error('purchase_error')
+              <p class="error-message purchase-error-box">{{ $message }}</p>
+        @enderror
+
+        <button class="purchase__button-submit" type="submit" id="finalPurchaseButton">購入する</button>
       </div>
     </div>
 
@@ -110,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
 });
 </script>
 @endpush

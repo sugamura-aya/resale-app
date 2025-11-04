@@ -20,6 +20,11 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/';
 
     /**
+     * ログアウト後のリダイレクト先を定義する（重要！）
+     */
+    public const LOGOUT = '/login'; // ログアウト後はログインページへ
+
+    /**
      * The controller namespace for the application.
      *
      * When present, controller route declarations will automatically be prefixed with this namespace.

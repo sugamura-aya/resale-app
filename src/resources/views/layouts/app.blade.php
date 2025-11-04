@@ -41,6 +41,7 @@
                 {{-- 右：ボタン3種 --}}
                 <div class="header__right">
                 {{-- ログイン・会員登録ページでは非表示 --}}
+                @auth 
                 @if (!in_array(Route::currentRouteName(), ['login', 'register']))
                     <div class="header__nav">
                         {{--ログアウト--}}
@@ -56,6 +57,7 @@
                         <a class="nav__item--button" href="{{ route('product.create') }}">出品</a> 
                     </div> 
                 @endif  
+                @endauth 
             </div>
         </header>
 

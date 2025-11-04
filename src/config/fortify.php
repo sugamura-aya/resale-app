@@ -76,6 +76,8 @@ return [
 
     'home' => RouteServiceProvider::HOME,
 
+    'logout' => RouteServiceProvider::LOGOUT,
+
     /*
     |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain

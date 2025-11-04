@@ -45,6 +45,16 @@ class ProfileController extends Controller
         //ログインしているユーザーを取得(時点で登録されているプロフィール内容を反映表示させるため)
         $user = Auth::user();
 
+        // 修正点：ダミー値のクリーニング 
+        // もし郵便番号が'000-0000'なら、表示時に空欄にする
+        if ($user && $user->postcode === '000-0000') {
+            $user->postcode = null; // または $user->postcode = '';
+        }
+        // もし住所が'未入力'なら、表示時に空欄にする
+        if ($user && $user->address === '未入力') {
+            $user->address = null; // または $user->address = '';
+        }
+
         return view('mypage.edit', compact('user'));
     }
 

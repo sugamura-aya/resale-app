@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::get('/item/{item_id}', [ProductController::class, 'show'])
 
 
 // 認証済みユーザーのみアクセスできるグループ
-/*Route::middleware('redirect.if.not.registered')->group(function () {*/
+Route::middleware('auth')->group(function () {
 
     //➀プロフィール画面（表示）
     // タブ切り替えで「プロフィール画面＿購入した商品一覧（/mypage?page=buy）」「プロフィール画面＿出品した商品一覧（/mypage?page=sell）」表示。
@@ -52,7 +53,7 @@ Route::get('/item/{item_id}', [ProductController::class, 'show'])
         ->name('product.like');
 
     //➂-1商品詳細ページでいいね（解除）
-    Route::delete('/item/{item_id}/unlike', [LikeController::class, 'destroy'])
+    Route::delete('/item/{item_id}/like', [LikeController::class, 'destroy'])
         ->name('product.unlike');
 
     //➂-2商品詳細ページでコメント投稿
@@ -82,7 +83,16 @@ Route::get('/item/{item_id}', [ProductController::class, 'show'])
     //➅商品出品画面（登録処理）
     Route::post('/sell', [ProductController::class, 'store'])
         ->name('product.store');
-/*});*/
+});
+
+/*ログアウト後ログインページへ*/
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect(route('login')); 
+})->name('logout');
 
 
 

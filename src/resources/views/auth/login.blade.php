@@ -10,7 +10,7 @@
 
   <div class="auth-form">
 
-    <form action="/login" method="POST" class="auth-form__content">
+    <form action="{{ route('login') }}" method="POST" class="auth-form__content">
     @csrf
 
       <div class="tit">

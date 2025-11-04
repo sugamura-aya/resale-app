@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Collection; 
 use App\Models\Product; 
 use App\Models\Category; 
+use App\Models\Condition;
 use App\Http\Requests\ExhibitionRequest;
 
 class ProductController extends Controller
@@ -18,6 +20,13 @@ class ProductController extends Controller
 
         //検索キーワードをRequestから取得
         $keyword = $request->input('keyword');
+
+        // ★★★ 未認証ユーザーがマイリストタブを選択した場合の処理 ★★★
+        if ($tab === 'mylist' && !Auth::check()) {
+            // 未認証ユーザーで「マイリスト」が選択された場合、空のコレクション（リスト）を返す
+            $products = collect([]); // collect() は空のリストを作る関数
+            return view('products.index', compact('products', 'tab'));
+        }
 
         // 全商品取得：クエリビルダ作成（検索＋絞り込みと、条件が追加されているためクエリビルダ）
         $query = Product::query()
@@ -53,15 +62,11 @@ class ProductController extends Controller
     //➂商品詳細画面（表示）
     public function show($item_id)
     {
-        $product = Product::with(['categories', 'likes', 'comments'])
-                            ->withCount(['likes', 'comments']) //いいね数（Bladeファイル{{ $product->likes_count }}で表示）、コメント数（Bladeファイル{{ $product->comments_count }}で表示）をカウント
-                            ->findOrFail($item_id);
-
         $product = Product::with([
             'categories',
             'likes',
             'comments' => function($query) {
-                $query->orderBy('created_at', 'desc'); // 新しい順に並び替え！
+                $query->orderBy('created_at', 'desc'); // 新しい順に並び替え
             },
         ])
         ->withCount(['likes', 'comments'])
@@ -79,8 +84,11 @@ class ProductController extends Controller
     {
         //出品ページでカテゴリ選択が出来るようcategoryを取得
         $categories = Category::all();
+
+        //Conditionモデルを使って、全ての商品状態データを取得する
+        $conditions = Condition::all();
         
-        return view('product.create', compact('categories'));
+        return view('products.create', compact('categories', 'conditions'));
     }
 
 
@@ -98,7 +106,7 @@ class ProductController extends Controller
             'image' => $imagePath,
             'price' => $request->price,
             'description' => $request->description,
-            'status' => $request->status,
+            'status' => 1,
             'condition_id' => $request->condition,
             'user_id' => Auth::id(),
         ];

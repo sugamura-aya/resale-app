@@ -17,7 +17,8 @@ class Order extends Model
         /*リレーションを設定するため、外部キーのuser_idにも許可リストをつける*/
         'user_id',
         /*リレーションを設定するため、外部キーのproduct_idにも許可リストをつける*/
-        'product_id'
+        'product_id',
+        'status',
     ];
 
     /*リレーション*/

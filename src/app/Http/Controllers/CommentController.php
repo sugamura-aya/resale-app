@@ -16,11 +16,11 @@ class CommentController extends Controller
 
         Comment::create([
             'user_id' => $user->id,
-            'item_id' => $item_id,
+            'product_id' => $item_id,
             'body' => $request->body,
         ]);
 
-        return redirect()->route('item.show', ['item' => $item_id])
+        return redirect()->route('product.show', ['item_id' => $item_id])
                          ->with('success', 'コメントを投稿しました');
     }
 }

@@ -18,7 +18,8 @@ class Product extends Model
         /*リレーションを設定するため、外部キーのuser_idにも許可リストをつける*/
         'user_id',
         /*リレーションを設定するため、外部キーのcondition_idにも許可リストをつける*/
-        'condition_id'
+        'condition_id',
+        'status'
     ];
 
 
@@ -63,6 +64,23 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_category');
+    }
+
+
+    // いいね済みか判定するメソッド
+    /**
+     * ログインユーザーがこの商品にいいねしているかチェック
+     *
+     * @param int|null $userId ログインユーザーID
+     * @return bool
+     */
+    public function isLikedByUser(?int $userId): bool
+    {
+        if (is_null($userId)) {
+            return false;
+        }
+        // likesリレーションシップを使って、現在のユーザーIDで絞り込む
+        return $this->likes()->where('user_id', $userId)->exists();
     }
 
     //Productsテーブルカラム「statu」をラベル表示できるように下記記述
