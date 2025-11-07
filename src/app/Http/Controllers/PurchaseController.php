@@ -32,53 +32,34 @@ class PurchaseController extends Controller
     //➃商品購入画面（購入処理）
     public function store(PurchaseRequest $request,$item_id)
     {
-
-        // try-catch ブロックでデータベース処理を囲む！
-        try {
-
-            //ログインしているユーザーを取得
-            $user = Auth::user();
-            
-            //ルートパスで送られてきた{item_id}で商品取得
-            $product = Product::findOrFail($item_id);
-
-            // セッションに住所変更があれば優先
-            $postcode = $request->session()->get('postcode', $user->postcode);
-            $address = $request->session()->get('address', $user->address);
-            $building = $request->session()->get('building', $user->building);
+        //ログインしているユーザーを取得
+        $user = Auth::user();
         
+        //ルートパスで送られてきた{item_id}で商品取得
+        $product = Product::findOrFail($item_id);
 
-            //リクエスト内容取得（支払方法など）
-            $paymentMethod = $request->input('payment_method');
+        //リクエスト内容取得（支払方法など）
+        $paymentMethod = $request->input('payment_method');
 
-            $orderData = [
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'payment_method' => $paymentMethod,
-                'postcode' => $request->session()->get('postcode', $user->postcode),
-                'address' => $request->session()->get('address', $user->address),
-                'building' => $request->session()->get('building', $user->building),
-            ];
+        $orderData = [
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'payment_method' => $paymentMethod,
+            'postcode' => $request->session()->get('postcode', $user->postcode),
+            'address' => $request->session()->get('address', $user->address),
+            'building' => $request->session()->get('building', $user->building),
+        ];
 
-            Order::create($orderData);
+        Order::create($orderData);
 
-            // 商品の状態を「Sold」にする
-            $product->update(['status' => 1]);
+        // 商品の状態を「Sold」にする
+        $product->update(['status' => 1]);
 
-            //セッションの住所を削除
-            $request->session()->forget(['postcode','address','building']);
+        //セッションの住所を削除
+        $request->session()->forget(['postcode','address','building']);
 
-            return redirect()->route('product.index')->with('success', '商品を購入しました');
+        return redirect()->route('product.index')->with('success', '商品を購入しました');
 
-        } catch (\Exception $e) {
-            // エラーが発生した場合（例：DBの制約エラーなど）
-            
-            // エラーログを残す（開発環境で確認用）
-            \Log::error("PurchaseController store error: " . $e->getMessage()); 
-            
-            // エラーメッセージを付けて購入画面に戻す
-            return back()->withInput()->withErrors(['purchase_error' => '購入処理中にエラーが発生しました。データを確認してください。']);
-        }
     }
 
 
