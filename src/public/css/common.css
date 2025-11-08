@@ -5,7 +5,6 @@
 }
 
 .header__inner {
-    max-width: 1512px;
     height: 80px;
     margin: 0 auto;/* 中央寄せ */
     padding: 0px 20px;/* 端が詰まらないように少し余白 */
@@ -80,9 +79,7 @@
     line-height: normal;/* line-heightはflexで中央揃え */
 }
 
-.logout-form button:hover {
-    opacity: 0.7;
-}
+
 
 /* ========== Nav Common ========== */
 .nav__item {

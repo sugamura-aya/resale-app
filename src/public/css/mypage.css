@@ -17,6 +17,7 @@
     max-width: 680px;
 }
 
+
 /* ========== 入力部分全体 ========== */
 .mypage-form__content {
     width: 680px;
@@ -114,7 +115,7 @@
 
 
 /* ========== ボタン郡========== */
-/* ========== ログイン・会員登録ボタン========== */
+/* ========== プロフィール設定登録ボタン========== */
 .mypage__button {
     display: flex;
     flex-direction: column;
@@ -136,14 +137,6 @@
     cursor: pointer;
     transition: background 0.3s ease;
     background: #FF5555
-}
-
-.mypage__button-submit:hover {
-    background-image: linear-gradient(90deg,
-            rgba(255, 183, 227, 1),
-            rgba(255, 247, 216, 0.35),
-            rgba(246, 190, 232, 0.65),
-            rgba(243, 170, 243, 0.6));
 }
 
 
@@ -283,7 +276,7 @@
 /* ========== 各商品カード========== */
 .product-list__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 70px 70px;
     padding: 0;
     margin: 0 69px;

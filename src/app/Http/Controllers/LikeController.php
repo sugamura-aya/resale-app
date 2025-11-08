@@ -36,6 +36,7 @@ class LikeController extends Controller
         // 商品の総いいね数を再計算
         $likesCount = Like::where('product_id', $item_id)->count();
 
+        //json形式:ブラウザをリロードせずにいいねボタンの見た目だけをサッと切り替えるときに使用
         return response()->json([
             'status' => 'ok',
             'isLiked' => $isLiked,

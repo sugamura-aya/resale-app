@@ -20,7 +20,8 @@ class FortifyServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() //プロバイダで提供する依存関係やサービスの登録場所
+    //プロバイダで提供する依存関係やサービスの登録場所
+    public function register() 
     {
 
          // デフォルトの LoginRequest を自作のものに差し替え

@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->string('brand')->nullable(); // 任意
             $table->integer('price');
             $table->text('description');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(0)->comment('0:販売中, 1:SOLD');;
             $table->timestamps();
         });
     }

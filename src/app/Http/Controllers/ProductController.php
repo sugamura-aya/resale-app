@@ -28,19 +28,19 @@ class ProductController extends Controller
             return view('products.index', compact('products', 'tab'));
         }
 
-        // 全商品取得：クエリビルダ作成（検索＋絞り込みと、条件が追加されているためクエリビルダ）
+        // 全商品取得：クエリビルダ作成（「検索＋絞り込み」と、条件が追加されているためallではなくクエリビルダで作成）
         $query = Product::query()
                         ->with('categories') //リレーション先のｶﾃｺﾞﾘも一緒に取得
-                        ->withCount(['orders','likes']); //購入数といいね数をカウント(Blade 側で $product->orders_count>0でsold判定)     
+                        ->withCount(['orders','likes']); //購入数といいね数をカウント(※Blade 側で $product->orders_count>0でsold判定)     
 
-        // 部分一致で絞り込み(!empty($keyword) → 値が入っている場合だけtrue)
+        // 部分一致で絞り込み（検索）
         if (!empty($keyword)) {
             $query->nameSearch($keyword); 
         }
 
-        // ログインユーザー自身の出品商品は非表示
+        // ログインユーザー自身の出品商品は非表示(「商品の出品者ID（user_id）が、ログインしているユーザー自身のID（Auth::id()）と等しくない（!=）商品だけを表示)
         if (Auth::check()) {
-            $query->where('user_id', '!=', Auth::id());
+            $query->where('user_id', '!=', Auth::id());  //'!='	比較演算子:「等しくない」という意。
         }
 
         // マイリストタブの場合、ログインユーザーのいいね商品に絞る
@@ -106,7 +106,7 @@ class ProductController extends Controller
             'image' => $imagePath,
             'price' => $request->price,
             'description' => $request->description,
-            'status' => 1,
+            'status' => 0,//0=出品中(1=販売済み)
             'condition_id' => $request->condition,
             'user_id' => Auth::id(),
         ];

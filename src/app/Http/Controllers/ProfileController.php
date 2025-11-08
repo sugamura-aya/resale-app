@@ -21,8 +21,21 @@ class ProfileController extends Controller
         $page = $request->query('page', 'sell');// デフォルトは「出品した商品」
 
         if ($user) {
-            $sellProducts = Product::where('user_id', $user->id)->get();//出品商品取得
-            $orderProducts = Order::where('user_id', $user->id)->get();//購入商品取得
+
+            //【出品商品取得】
+            $sellProducts = Product::where('user_id', $user->id)->get();
+
+            //【購入商品取得】
+            //手順➀：リレーションを使ってProductモデルを取得
+            $orders = Order::where('user_id', $user->id)
+                        ->with('product') // 紐づく商品情報をロード
+                        ->get();
+
+            //手順➁：➀から商品情報のみを抽出→購入商品取得
+            $orderProducts = $orders->pluck('product') // OrderからProductモデルを抜き出す(productというキーのみの情報にする処理)
+                        ->filter() // nullを除去
+                        ->unique('id'); // 重複を排除
+
         } else {
             $sellProducts = collect(); // 空のコレクションを返す
             $orderProducts = collect(); // 空のコレクションを返す
@@ -45,7 +58,7 @@ class ProfileController extends Controller
         //ログインしているユーザーを取得(時点で登録されているプロフィール内容を反映表示させるため)
         $user = Auth::user();
 
-        // 修正点：ダミー値のクリーニング 
+        // ダミー値のクリーニング 
         // もし郵便番号が'000-0000'なら、表示時に空欄にする
         if ($user && $user->postcode === '000-0000') {
             $user->postcode = null; // または $user->postcode = '';
@@ -75,7 +88,7 @@ class ProfileController extends Controller
         }
 
         //ログイン中ユーザーのレコードを更新
-        Auth::user()->update($profileData);
+        $user->update($profileData);
 
         return redirect()->route('product.index')
                          ->with('success','プロフィールを更新しました');

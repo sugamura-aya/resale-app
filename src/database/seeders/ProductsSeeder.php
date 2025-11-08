@@ -15,6 +15,7 @@ class ProductsSeeder extends Seeder
     public function run()
     {
         DB::table('products')->insert([
+
             'user_id' => 1, // UsersSeederで作ったユーザーのID
             'condition_id' => 1, // ConditionsSeederで作った「良好」
             'name' => '腕時計',
@@ -22,13 +23,14 @@ class ProductsSeeder extends Seeder
             'brand' => 'Rolax',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
             'image' => 'products/armani_mens_clock.jpg',
-            'status' => 1, // 1=出品中
+            'status' => 0, // 0=出品中
             'created_at' => now(),
             'updated_at' => now()
+
         ]);
 
-                DB::table('products')->insert([
-            [
+        DB::table('products')->insert([
+
                 'user_id' => 1,
                 'condition_id' => 2, // 目立った傷や汚れなし
                 'name' => 'HDD',
@@ -36,14 +38,14 @@ class ProductsSeeder extends Seeder
                 'brand' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
                 'image' => 'products/hdd_hard_disk.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+
         ]);
 
         DB::table('products')->insert([
-            [
+
                 'user_id' => 1,
                 'condition_id' => 3, // やや傷や汚れあり
                 'name' => '玉ねぎ3束',
@@ -51,14 +53,14 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'image' => 'products/onion_bundle.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+
         ]);
 
         DB::table('products')->insert([
-            [
+
                 'user_id' => 1,
                 'condition_id' => 4, // 状態が悪い
                 'name' => '革靴',
@@ -66,14 +68,14 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => 'クラシックなデザインの革靴',
                 'image' => 'products/leather_shoes.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+
         ]);
 
         DB::table('products')->insert([
-            [
+            
                 'user_id' => 1,
                 'condition_id' => 1,
                 'name' => 'ノートPC',
@@ -81,14 +83,14 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => '高性能なノートパソコン',
                 'image' => 'products/laptop.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            
         ]);
 
         DB::table('products')->insert([
-            [
+            
                 'user_id' => 1,
                 'condition_id' => 2,
                 'name' => 'マイク',
@@ -96,14 +98,14 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => '高音質のレコーディング用マイク',
                 'image' => 'products/microphone.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            
         ]);
 
         DB::table('products')->insert([
-            [
+            
                 'user_id' => 1,
                 'condition_id' => 3,
                 'name' => 'ショルダーバッグ',
@@ -111,14 +113,14 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => 'おしゃれなショルダーバッグ',
                 'image' => 'products/shoulder_bag.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            
         ]);
 
         DB::table('products')->insert([
-            [
+            
                 'user_id' => 1,
                 'condition_id' => 4,
                 'name' => 'タンブラー',
@@ -126,14 +128,14 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => '使いやすいタンブラー',
                 'image' => 'products/tumbler.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            
         ]);
 
         DB::table('products')->insert([
-            [
+            
                 'user_id' => 1,
                 'condition_id' => 1,
                 'name' => 'コーヒーミル',
@@ -141,14 +143,14 @@ class ProductsSeeder extends Seeder
                 'brand' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
                 'image' => 'products/coffee_mill.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            
         ]);
 
         DB::table('products')->insert([
-            [
+            
                 'user_id' => 1,
                 'condition_id' => 2,
                 'name' => 'メイクセット',
@@ -156,10 +158,10 @@ class ProductsSeeder extends Seeder
                 'brand' => null,
                 'description' => '便利なメイクアップセット',
                 'image' => 'products/makeup_set.jpg',
-                'status' => 1,
+                'status' => 0, // // 0=出品中
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            
         ]);
     }
 }

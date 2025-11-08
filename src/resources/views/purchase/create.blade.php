@@ -25,7 +25,7 @@
         <div class="nameprice-preview-wrapper">
           <h2 class="product-name">{{ $product->name }}</h2>
 
-          <p class="product-price">¥{{ number_format($product->price) }}</p> <!--number_format() 3桁ごとにカンマ（,）**を入れてくれるPHPの関数 -->
+          <p class="product-price"><span class="price-en">￥</span>{{ number_format($product->price) }}</p> <!--number_format() 3桁ごとにカンマ（,）**を入れてくれるPHPの関数 -->
         </div>
       </div>
 

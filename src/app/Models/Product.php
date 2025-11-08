@@ -23,7 +23,7 @@ class Product extends Model
     ];
 
 
-    /*リレーション*/
+    /*～～～～～リレーション～～～～～～*/
     //➀Productモデル：Userモデル＝子：親＝多：１（出品者）
     //リレーションを繋げる（子モデル側）
     public function user() {
@@ -67,7 +67,7 @@ class Product extends Model
     }
 
 
-    // いいね済みか判定するメソッド
+    // ～～～～～いいね済みか判定するメソッド～～～～～
     /**
      * ログインユーザーがこの商品にいいねしているかチェック
      *
@@ -86,12 +86,14 @@ class Product extends Model
     //Productsテーブルカラム「statu」をラベル表示できるように下記記述
     public function getStatusLabelAttribute() {
         return match($this->status) {
-            1 => '出品中',
-            2 => '販売済み',
+            0 => '出品中',
+            1 => '販売済み',
             default => '不明',
         };
     }
 
+
+    //～～～～～～ローカルスコープ～～～～～～～～
     //商品名検索スコープ（部分一致）
     public function scopeNameSearch($query, $name)
     {

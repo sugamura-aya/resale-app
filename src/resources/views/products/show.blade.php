@@ -102,23 +102,31 @@
             </div>
 
 
-
             {{--購入ボタン--}}
-            {{-- ログインユーザーが出品者本人ではない場合のみ表示 --}}
-            @auth
-                @if (Auth::id() !== $product->user_id)
-                <div class="purchase__button">
-                    <a href="{{route('purchase.create', $product->id)}}" class="purchase__button-submit">購入手続きへ</a>
+            {{-- 購入ボタンとSOLD表示の制御 --}}
+            @if ($product->status == 1)
+                {{-- 商品が販売済み（status = 1）の場合：購入ボタンを非表示にし、SOLD OUTと表示 --}}
+                <div class="purchase__button sold-out">
+                    <span class="purchase__button-submit sold-out-text">SOLD OUT</span>
                 </div>
+            @else 
+                {{-- 未販売（status = 0）の場合のボタン表示制御 --}}
+                
+                {{-- ログインユーザーが出品者本人ではない場合、または未認証ユーザーにボタンを表示 --}}
+                @if (Auth::check())
+                    {{-- ログイン済み：出品者本人ではない場合のみ表示 --}}
+                    @if (Auth::id() !== $product->user_id)
+                        <div class="purchase__button">
+                            <a href="{{ route('purchase.create', $product->id) }}" class="purchase__button-submit">購入手続きへ</a>
+                        </div>
+                    @endif
+                @else
+                    {{-- 未認証（ログアウト状態）：購入手続きへボタンを表示（クリックでログイン誘導） --}}
+                    <div class="purchase__button">
+                        <a href="{{ route('purchase.create', $product->id) }}" class="purchase__button-submit">購入手続きへ</a>
+                    </div>
                 @endif
-            @endauth
-
-            {{-- 未認証ユーザー（@guest）にはボタンを常に表示する（ログインページへ誘導） --}}
-            @guest
-                <div class="purchase__button">
-                    <a href="{{route('purchase.create', $product->id)}}" class="purchase__button-submit">購入手続きへ</a>
-                </div>
-            @endguest
+            @endif
         </div>
 
         {{--➁商品説明--}}

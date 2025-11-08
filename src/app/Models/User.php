@@ -28,7 +28,7 @@ class User extends Authenticatable
     ];
 
 
-    /*リレーション*/
+    /*～～～～～リレーション～～～～～～*/
     //➀Userモデル：Orderモデル＝親：子＝１：多
     //リレーションを繋げる（親モデル側）
     public function orders(){

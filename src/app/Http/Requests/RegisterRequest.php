@@ -26,7 +26,7 @@ class RegisterRequest extends FortifyRegisterRequest
     {
         return [
             'name' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8','confirmed'], //confirmedで確認用パスワードのバリデーション
         ];
     }
@@ -38,6 +38,7 @@ class RegisterRequest extends FortifyRegisterRequest
             'name.max' => 'お名前は20文字以内で入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
+            'email.unique' => 'このメールアドレスは既に登録されています',
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは8文字以上で入力してください',
             'password.confirmed' => 'パスワードと一致しません'

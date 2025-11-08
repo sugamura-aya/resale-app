@@ -40,24 +40,40 @@
 
                 {{-- 右：ボタン3種 --}}
                 <div class="header__right">
-                {{-- ログイン・会員登録ページでは非表示 --}}
-                @auth 
-                @if (!in_array(Route::currentRouteName(), ['login', 'register']))
-                    <div class="header__nav">
-                        {{--ログアウト--}}
-                        <form action="{{ route('logout') }}" method="POST" class="logout-form">
-                        @csrf
-                            <button type="submit" class="nav__item">ログアウト</button>
-                        </form>
+                
+                    {{-- ログイン・会員登録ページでは非表示 --}}
+                    @if (!in_array(Route::currentRouteName(), ['login', 'register']))
+                        <div class="header__nav">
 
-                        {{--マイページ--}}
-                        <a class="nav__item" href="{{ route('mypage.show') }}">マイページ</a>
+                            {{-- 認証済みユーザー向けボタン (@auth) --}}
+                            @auth 
+                                {{-- ログアウト --}}
+                                <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                                @csrf
+                                    <button type="submit" class="nav__item">ログアウト</button>
+                                </form>
 
-                        {{-- 出品 --}}
-                        <a class="nav__item--button" href="{{ route('product.create') }}">出品</a> 
-                    </div> 
-                @endif  
-                @endauth 
+                                {{-- マイページ --}}
+                                <a class="nav__item" href="{{ route('mypage.show') }}">マイページ</a>
+
+                                {{-- 出品 --}}
+                                <a class="nav__item--button" href="{{ route('product.create') }}">出品</a> 
+                            @endauth 
+                            
+                            {{-- 未認証ユーザー向けボタン (@guest) --}}
+                            @guest 
+                                {{--「ログイン」ボタン --}}
+                                <a class="nav__item" href="{{ route('login') }}">ログイン</a>
+                                
+                                {{-- 「マイページ」ボタン --}}
+                                <a class="nav__item" href="{{ route('login') }}">マイページ</a>
+                                
+                                {{-- 「出品」ボタン --}}
+                                <a class="nav__item--button" href="{{ route('login') }}">出品</a> 
+                            @endguest
+                        </div> 
+                    @endif  
+                </div>
             </div>
         </header>
 

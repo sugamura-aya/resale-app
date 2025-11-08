@@ -26,11 +26,10 @@
         		</label>
         
         <input id="image-input" class="image-input" type="file" name="image" accept="image/*" style="display:none;">
-        
-        @error('image')
+      </div>
+       @error('image')
           <div class="error-message">{{ $message }}</div>
         @enderror
-      </div>
 
       {{-- 商品詳細 --}}
       <div class="listing-product__detailed">

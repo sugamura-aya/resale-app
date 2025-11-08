@@ -42,7 +42,7 @@
 /* ========== 各商品カード========== */
 .product-list__wrapper{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 70px 70px;
     padding: 0;
     margin: 0 69px;
@@ -91,10 +91,8 @@
 /* 商品カードのリンク自体を基準にする */
 .product-list__item a {
     position: relative;
-    display: block;
-    /* aタグが領域全体を占めるように */
-    overflow: hidden;
-    /* Soldバッジがはみ出さないように（斜め表示の場合） */
+    display: block;/* aタグが領域全体を占めるように */
+    overflow: hidden;/* Soldバッジがはみ出さないように（斜め表示の場合） */
 }
 
 /* Soldバッジを画像全体に重ねるためのコンテナ */
@@ -104,31 +102,33 @@
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    /* 中央に配置 */
-    align-items: center;
-    z-index: 10;
-    /* 画像より手前に表示 */
-    pointer-events: none;
-    /* 下の画像リンクをクリックできるようにする */
+
+    background: none; 
+    display: block; 
+    z-index: 10;/* 画像より手前に表示 */
+    pointer-events: none;/* 下の画像リンクをクリックできるようにする */
 }
 
 /* Soldの文字自体 */
 .sold-badge {
-    background-color: #e53e3e;
-    /* 赤系の背景色 */
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 900;
-    /* 太字 */
-    padding: 0.25rem 0.75rem;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    /* ちょっと斜めにして目立たせる */
-    transform: rotate(-10deg);
-    opacity: 0.9;
-    /* 少し透明度をつけて画像を見えやすく */
+    position: absolute; /* 絶対配置 */
+
+    /* リボンの形状と位置調整 */
+    background-color: #FF5555;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    padding:20px 60px; /* 左右を長く */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    width: 280px;
+
+    /* 左上固定＆斜め配置 */
+    top: -6px; /* 上から少し下げる */
+    left: -114px; /* 左にはみ出させる */
+    transform: rotate(-45deg); /* 45度回転させてリボンにする */
+    transform-origin: 200px 0px;
 }
 
 
@@ -150,10 +150,6 @@
     margin-top: 36px;
     margin-bottom: 36px;
     margin-left: 45px;
-}
-
-.product-image-wrapper {
-
 }
 
 .product-image {
@@ -286,6 +282,7 @@
     text-decoration: none;
     text-align: center;
     align-content: center;
+    cursor: pointer;
 }
 
 /* 2. 商品説明 */
@@ -380,8 +377,6 @@
     /* コメントの区切り線 */
 }
 
-.comment__user-icon {}
-
 .user-icon {
     width: 70px;
     height: 70px;
@@ -439,10 +434,7 @@
     font-weight: 700;
     font-size: 28px;
     color: #000000;
-    margin-bottom: 0;
 }
-
-.comment__form {}
 
 .comment__input {
     width: 570px;
@@ -475,6 +467,7 @@
     border-radius: 4px;
     border: none;
     text-align: center;
+    cursor: pointer;
 }
 
 /* @media (max-width: 768px) など、レスポンシブ対応 */
@@ -556,7 +549,7 @@
     font-weight: 700;
     font-size: 24px;
     color: #000000;
-    margin-top: 25px;
+    margin-top: 50px;
 }
 
 .preview-image {
@@ -610,7 +603,7 @@
     flex-wrap: wrap;/* 項目が多い場合に折り返す */
     gap: 10px;/* 項目間のスペース */
     margin-top: 30px;
-    margin-bottom: 45px;
+    margin-bottom: 15px;
 }
 
 /* ラベル全体をボタンエリアとして機能させる */
@@ -700,4 +693,5 @@
     font-weight: 700;
     font-size: 26px;
     color: #FFFFFF;
+    cursor: pointer;
 }

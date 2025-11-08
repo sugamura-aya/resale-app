@@ -15,7 +15,7 @@
       {{--プロフィール画像--}}
       <div class="image-preview-wrapper">
         @if($user)
-          <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : asset('images/default-profile.png') }}" alt="{{ $user->name }}">
+          <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : asset('images/default-profile.png') }}" alt="">
         @else
           <img src="{{ asset('images/default-profile.png') }}" alt="ゲスト">
         @endif
