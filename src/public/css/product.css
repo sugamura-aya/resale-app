@@ -1,5 +1,36 @@
 /*商品一覧ページ*/
 /* ---------------------------------------------------- */
+/*コメント投稿成功メッセージ*/
+.listing__alert--success {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+/*コメント投稿成功メッセージ*/
+.mypage__alert--success {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+/*コメント投稿成功メッセージ*/
+.purchase__alert--success {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+
 /* ========== ヘッダー部分========== */
 .product-tab{
     border-bottom: 2px solid #000;
@@ -142,6 +173,17 @@
     display: flex;
     justify-content: center;
 }
+
+/*コメント投稿成功メッセージ*/
+.detailed__alert--success{
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 700;
+    font-size: 25px;
+}
+
 
 /* 左側: 商品画像 */
 .detailed-page__left{

@@ -121,7 +121,7 @@ class ProductController extends Controller
         // Product と Category が多対多で中間テーブル product_category でつながっているためattachで取得する
         $product->categories()->attach($request->categories);
 
-        return redirect()->route('product.index')->with('success', '商品を出品しました');
+        return redirect()->route('product.index')->with('success-listing', '商品を出品しました');
 
     }
 }

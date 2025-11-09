@@ -6,6 +6,32 @@
 
 
 @section('content')
+{{--sessionにて「商品を出品しました」が表示--}}
+<div class="listing__alert">
+    @if(session('success-listing'))
+    <div class="listing__alert--success">
+      {{session('success-listing')}}
+    </div>
+    @endif
+</div>
+
+{{--sessionにて「プロフィールを更新しました」が表示--}}
+<div class="mypage__alert">
+    @if(session('success-mypage'))
+    <div class="mypage__alert--success">
+      {{session('success-mypage')}}
+    </div>
+    @endif
+</div>
+
+{{--sessionにて「商品を購入しました」が表示--}}
+<div class="purchase__alert">
+    @if(session('success-purchase'))
+    <div class="purchase__alert--success">
+      {{session('success-purchase')}}
+    </div>
+    @endif
+</div>
 
 <div class="list">
   {{-- タブ部分 --}}

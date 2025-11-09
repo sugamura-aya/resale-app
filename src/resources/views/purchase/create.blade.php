@@ -6,6 +6,15 @@
 
 
 @section('content')
+{{--sessionにて「配送先住所を更新しました」が表示--}}
+<div class="address__alert">
+    @if(session('success'))
+    <div class="address__alert--success">
+      {{session('success')}}
+    </div>
+    @endif
+</div>
+
 <div class="purchase-page">
 
   <form action="{{route('purchase.store', ['item_id' => $item_id]) }}" class="purchase-form" method="POST" id="purchaseForm">

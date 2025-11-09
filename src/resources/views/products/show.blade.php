@@ -9,6 +9,15 @@
 
 
 @section('content')
+{{--sessionにて「コメントを投稿しました」が表示--}}
+<div class="detailed__alert">
+    @if(session('success'))
+    <div class="detailed__alert--success">
+        {{session('success')}}
+    </div>
+    @endif
+</div>
+
 <div class="detailed-page">
 
     {{--左側：商品画像--}}

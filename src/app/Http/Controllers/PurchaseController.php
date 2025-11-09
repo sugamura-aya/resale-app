@@ -58,7 +58,7 @@ class PurchaseController extends Controller
         //セッションの住所を削除
         $request->session()->forget(['postcode','address','building']);
 
-        return redirect()->route('product.index')->with('success', '商品を購入しました');
+        return redirect()->route('product.index')->with('success-purchase', '商品を購入しました');
 
     }
 

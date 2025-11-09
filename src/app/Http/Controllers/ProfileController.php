@@ -91,7 +91,7 @@ class ProfileController extends Controller
         $user->update($profileData);
 
         return redirect()->route('product.index')
-                         ->with('success','プロフィールを更新しました');
+                         ->with('success-mypage','プロフィールを更新しました');
     }
 
 }

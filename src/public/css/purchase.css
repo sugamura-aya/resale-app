@@ -1,6 +1,16 @@
 
 /*商品購入画面*/
 
+/*コメント投稿成功メッセージ*/
+.address__alert--success {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 700;
+    font-size: 25px;
+}
+
 /* ------------------------ */
 /* ページ基本構造 */
 /* ------------------------ */
