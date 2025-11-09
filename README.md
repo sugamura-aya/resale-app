@@ -45,7 +45,7 @@ resale-app（フリマアプリ）
 12. ダミーデータ投入（ファクトリ使用）  
     `php artisan db:seed`
 
-13. シンボリックリンクの作成
+13. シンボリックリンクの作成  
     `php artisan storage:link`
 
 ## 使用技術・実行環境
