@@ -52,7 +52,7 @@ resale-app（フリマアプリ）
 - ログイン画面 : /login
 - 商品詳細画面 :/item/{item_id}
 - 商品購入画面 : /purchase/{item_id}
-- 送付先住所変更画面 : /purchase/address/i{tem_id}
+- 送付先住所変更画面 : /purchase/address/{item_id}
 - 商品出品画面 : /sell
 - プロフィール画面 : /mypage
 - プロフィール編集画面（設定画面） : /mypage/profile
