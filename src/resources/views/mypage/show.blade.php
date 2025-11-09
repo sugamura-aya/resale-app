@@ -55,6 +55,13 @@
       @foreach ($products as $product)
         <li class="product-list__item">
           <a href="{{ route('product.show', ['item_id' => $product->id]) }}">
+
+             @if (isset($product->orders_count) && $product->orders_count > 0) 
+              <div class="sold-out-overlay">
+                <span class="sold-badge">Sold</span>
+              </div>
+            @endif
+
             <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
             <p class="row-name">{{ $product->name }}</p>
           </a>

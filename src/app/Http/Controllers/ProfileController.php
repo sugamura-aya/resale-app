@@ -23,12 +23,15 @@ class ProfileController extends Controller
         if ($user) {
 
             //【出品商品取得】
-            $sellProducts = Product::where('user_id', $user->id)->get();
+            $sellProducts = Product::where('user_id', $user->id)->withCount('orders')->get();
 
             //【購入商品取得】
             //手順➀：リレーションを使ってProductモデルを取得
             $orders = Order::where('user_id', $user->id)
-                        ->with('product') // 紐づく商品情報をロード
+                        ->with(['product' => function ($query) {
+                            // ★ 購入した商品（Productモデル）にも orders_count をロードさせる ★
+                            $query->withCount('orders');
+                        }])
                         ->get();
 
             //手順➁：➀から商品情報のみを抽出→購入商品取得

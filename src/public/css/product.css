@@ -482,7 +482,7 @@
     width: 570px;
     height:246px;
     margin-bottom: 24px;
-    font-size: 24px;
+    font-size: 20px;
     color: #000000;
 }
 
@@ -669,7 +669,7 @@
     margin-top: 15px;
 }
 
-/* チェックされた時のデザイン (ここが最重要！) */
+/* チェックされた時のデザイン  */
 .category-checkbox:checked+.category-name {
     /* input:checked のすぐ隣にある span (.category-name) を選択 */
     background-color: #FF5655;/* チェックされたらオレンジに */
@@ -700,14 +700,12 @@
 
 /* .detailed__title は共通 */
 /* .form-group は共通 */
-
 .fields {
     width: 100%;
     height: 45px;
     color: #5F5F5F;
     font-weight: 700;
     font-size: 16px;
-    border: 1px solid #5F5F5F;
     border-radius: 4px;
 }
 
@@ -720,6 +718,41 @@
     border: 1px solid #5F5F5F;
     border-radius: 4px;
 }
+
+
+/* 販売価格入力欄のラッパー（wrapper） */
+.price-input-wrapper {
+    /* 疑似要素（￥マーク）の位置の基準にする */
+    position: relative;
+
+    /* inputの幅に合わせる（必要に応じて） */
+    width: 100%;
+}
+
+/* ￥マークの表示設定 */
+.price-input-wrapper::before {
+    content: "¥";/* ここで「¥」を表示 */
+
+    /* ￥マークの位置を調整 */
+    position: absolute;
+    top: 50%;/* 縦中央 */
+    left: 15px;/* 左端からの距離 */
+    transform: translateY(-50%);/* 縦中央に微調整 */
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+
+    /* テキスト選択の邪魔にならないように */
+    pointer-events: none;
+}
+
+/*　inputタグ自体の調整 */
+/* ￥マークと文字が重ならないように、paddingで左側の余白を確保する */
+.price-input-wrapper .fields {
+    /* 左側に￥マークの分の余白を入れる */
+    padding-left: 40px;
+}
+
 
 /* ========== ボタンセクション========== */
 .listing__button {

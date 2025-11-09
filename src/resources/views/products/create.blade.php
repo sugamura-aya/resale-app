@@ -112,9 +112,12 @@
         {{--販売価格--}}
         <div class="form-group">
             <div class="form-label">販売価格</div>
-            <input class="fields" type="text" name="price" value="{{ old('price') }}">
+
+            <div class="price-input-wrapper">
+              <input class="fields" type="text" name="price" value="{{ old('price') }}">
+            </div>
             @error('price')
-            <div class="error-message">{{ $message }}</div>
+              <div class="error-message">{{ $message }}</div>
             @enderror
         </div>
       </div>
