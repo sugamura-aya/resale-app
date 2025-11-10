@@ -3,32 +3,51 @@ resale-app（フリマアプリ）
 
 ## 環境構築手順
 1. このリポジトリをクローン  
-   `git clone git@github.com:sugamura-aya/resale.git`
-2. docker-compose.yml ファイル内の php: に以下を追記
+   `git clone git@github.com:sugamura-aya/resale-app.git`
+   
+2. `docker-compose.yml` ファイル内の `php:` に以下を追記
    ```yaml
    user: "1000:1000"
+   
 3. PHPバージョン確認・修正
-   docker/php/Dockerfile を開き、PHPのベースイメージが FROM php:8.1-fpm になっているか確認・修正。
+   `docker/php/Dockerfile` を開き、PHPのベースイメージが `FROM php:8.1-fpm` になっているか確認・修正。
+   
 4. Dockerイメージをビルド  
    `docker-compose up -d --build`
-4. ファイル権限変更  
+   
+5. ファイル権限変更  
    `sudo chown -R $USER:$USER .`
-5. PHPコンテナにログイン  
+
+6. PHPコンテナにログイン  
    `docker-compose exec php bash`
-6. .env.exampleを.envにコピーして、以下の内容に変更  
+    
+7. .env.exampleを.envにコピーして、以下の内容に変更   
+   `cp .env.example .env` 
    ```env
    DB_HOST=mysql  
    DB_DATABASE=laravel_db  
    DB_USERNAME=laravel_user  
    DB_PASSWORD=laravel_pass
-7. パッケージインストール  
+   ```
+   
+8. パッケージインストール  
    `composer install`
-8. アプリキーの生成  
+
+9. アプリキーの生成  
    `php artisan key:generate`
-9. マイグレーション実行  
+
+10. Dockerイメージを一旦コンテナを完全停止・削除、設定を反映して再構築＆起動  
+   `docker-compose down`  
+   `docker-compose up -d --build`  
+
+11. マイグレーション実行  
    `php artisan migrate`
-10. ダミーデータ投入（ファクトリ使用）  
+
+12. ダミーデータ投入（ファクトリ使用）  
     `php artisan db:seed`
+
+13. シンボリックリンクの作成  
+    `php artisan storage:link`
 
 ## 使用技術・実行環境
 このアプリケーションは Laravel と Docker を用いて構築しています。
