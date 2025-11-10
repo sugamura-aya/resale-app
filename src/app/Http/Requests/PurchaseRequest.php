@@ -32,7 +32,7 @@ class PurchaseRequest extends FormRequest
         $user = Auth::user();
 
         // 郵便番号(postcode)または住所(address)のどちらかが空の場合にエラーを追加する
-        // ※ 建物名(building)は任意なのでチェックしない
+        // 建物名(building)は任意なのでチェックしない
         if (empty($user->postcode) || empty($user->address)) {
             
             // エラーが発生した場合、バリデーターにメッセージを追加する
@@ -53,7 +53,7 @@ class PurchaseRequest extends FormRequest
         return [
             'payment_method' => ['required', 'in:card,convenience_store'],
             
-             // 配送先はセッションかユーザーのプロフィールから取得するため、仮のフィールド名。配送先が存在するかをチェック
+            // 配送先はセッションかユーザーのプロフィールから取得するため仮のフィールド名。配送先が存在するかをチェック
             // withValidatorでエラーを発生させるためのダミーとして残す
             'address_check' => ['sometimes'], 
         ];

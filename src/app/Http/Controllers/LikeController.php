@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Like;
-use App\Models\Product; // 総いいね数を取得するためにProductモデルを追加
+use App\Models\Product; 
 
 class LikeController extends Controller
 {
@@ -29,7 +29,7 @@ class LikeController extends Controller
             ]);
             $isLiked = true; // 登録したので状態をtrueにする
         } else {
-            // すでに登録されていた場合も、当然いいね状態はtrue
+            // すでに登録されていた場合も、いいね状態はtrue
             $isLiked = true;
         }
 

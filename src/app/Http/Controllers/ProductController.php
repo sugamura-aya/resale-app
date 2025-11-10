@@ -38,7 +38,7 @@ class ProductController extends Controller
             $query->nameSearch($keyword); 
         }
 
-        // ログインユーザー自身の出品商品は非表示(「商品の出品者ID（user_id）が、ログインしているユーザー自身のID（Auth::id()）と等しくない（!=）商品だけを表示)
+        // ログインユーザー自身の出品商品は非表示
         if (Auth::check()) {
             $query->where('user_id', '!=', Auth::id());  //'!='	比較演算子:「等しくない」という意。
         }
@@ -66,7 +66,7 @@ class ProductController extends Controller
             'categories',
             'likes',
             'comments' => function($query) {
-                $query->orderBy('created_at', 'desc'); // 新しい順に並び替え
+                $query->orderBy('created_at', 'desc'); // 新しい順
             },
         ])
         ->withCount(['likes', 'comments'])
@@ -95,7 +95,6 @@ class ProductController extends Controller
     //➅商品出品画面（登録処理）
     public function store(ExhibitionRequest $request)
     {
-
         // 画像アップロード
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
