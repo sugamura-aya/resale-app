@@ -21,8 +21,8 @@ resale-app（フリマアプリ）
 6. PHPコンテナにログイン  
    `docker-compose exec php bash`
     
-7. `cp .env.example .env`  
-   .env.exampleを.envにコピーして、以下の内容に変更
+7. .env.exampleを.envにコピーして、以下の内容に変更   
+   `cp .env.example .env` 
    ```env
    DB_HOST=mysql  
    DB_DATABASE=laravel_db  
