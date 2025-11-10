@@ -3,7 +3,7 @@ resale-app（フリマアプリ）
 
 ## 環境構築手順
 1. このリポジトリをクローン  
-   `git clone git@github.com:sugamura-aya/resale.git`
+   `git clone git@github.com:sugamura-aya/resale-app.git`
    
 2. `docker-compose.yml` ファイル内の `php:` に以下を追記
    ```yaml
